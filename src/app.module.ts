@@ -5,6 +5,7 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { MessagesModule } from './messages/messages.module';
 import { DevicesModule } from './devices/devices.module';
+import { HealthModule } from './health/health.module';
 
 @Module({
   imports: [
@@ -29,6 +30,7 @@ import { DevicesModule } from './devices/devices.module';
 
     MessagesModule,
     DevicesModule,
+    HealthModule,
   ],
   controllers: [AppController],
   providers: [AppService],
