@@ -1,19 +1,10 @@
-// import { Module } from '@nestjs/common';
-// import { AppController } from './app.controller';
-// import { AppService } from './app.service';
-
-// @Module({
-//   imports: [],
-//   controllers: [AppController],
-//   providers: [AppService],
-// })
-// export class AppModule {}
-
 import { Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
+import { MessagesModule } from './messages/messages.module';
+import { DevicesModule } from './devices/devices.module';
 
 @Module({
   imports: [
@@ -35,6 +26,9 @@ import { AppService } from './app.service';
         synchronize: true, // ⚠️ dev only
       }),
     }),
+
+    MessagesModule,
+    DevicesModule,
   ],
   controllers: [AppController],
   providers: [AppService],
