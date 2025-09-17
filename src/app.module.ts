@@ -6,11 +6,15 @@ import { AppService } from './app.service';
 import { MessagesModule } from './messages/messages.module';
 import { DevicesModule } from './devices/devices.module';
 import { HealthModule } from './health/health.module';
+import { LoggingModule } from './logging/logging.module';
 
 @Module({
   imports: [
     // Load .env file
     ConfigModule.forRoot({ isGlobal: true }),
+
+    // Logger configuration
+    LoggingModule,
 
     // Database connection
     TypeOrmModule.forRootAsync({
