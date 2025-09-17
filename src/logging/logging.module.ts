@@ -11,6 +11,7 @@ import { createWinstonConfig } from './winston.config';
   imports: [TypeOrmModule.forFeature([SmsLog])],
   controllers: [LogsController],
   providers: [LogsService],
+  exports: [LogsService],
 })
 export class LoggingModule {
   static forRoot(smsLogRepo): any {
