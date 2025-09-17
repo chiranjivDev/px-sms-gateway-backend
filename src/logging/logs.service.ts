@@ -33,4 +33,15 @@ export class LogsService {
 
     return query.getMany();
   }
+
+  async logDeviceRegistration({ deviceId, name, userId, timestamp }: { deviceId: string; name: string; userId: string; timestamp: Date }) {
+    await this.smsLogRepo.save({
+      level: 'info',
+      message: `Device registered: ${name} (${deviceId}) by user ${userId}`,
+      toNumber: '',
+      provider: '',
+      error: '',
+      timestamp,
+    });
+  }
 }

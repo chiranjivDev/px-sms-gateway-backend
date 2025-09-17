@@ -4,13 +4,16 @@ import { Repository } from 'typeorm';
 import { Device } from './device.entity';
 import { RegisterDeviceDto } from './dto/register-device.dto';
 import { RegisterDeviceResponse } from './dto/register-device.response';
+
 import { nanoid } from 'nanoid';
 import * as bcrypt from 'bcrypt';
+import { LogsService } from '../logging/logs.service';
 
 @Injectable()
 export class DevicesService {
   constructor(
     @InjectRepository(Device) private readonly deviceRepo: Repository<Device>,
+    private readonly logsService: LogsService,
   ) {}
 
   private generateLoginAndPassword(id: string) {
@@ -37,13 +40,21 @@ export class DevicesService {
 
     const device = this.deviceRepo.create({
       id: deviceId,
-      name: dto.name,
+  name: dto.name ?? '',
       pushToken: dto.pushToken,
       authToken,
       userId: login, // using login as UserID reference
     });
 
     await this.deviceRepo.save(device);
+
+    // Log the device registration event
+    await this.logsService.logDeviceRegistration({
+      deviceId,
+      name: dto.name ?? '',
+      userId: login,
+      timestamp: new Date(),
+    });
 
     return {
       id: deviceId,
