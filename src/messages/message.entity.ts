@@ -2,10 +2,10 @@ import {
   Entity,
   PrimaryGeneratedColumn,
   Column,
-  ManyToOne,
+  // ManyToOne,
   CreateDateColumn,
 } from 'typeorm';
-import { Device } from '../devices/device.entity'; // FK (we’ll create Device entity soon)
+// import { Device } from '../devices/device.entity'; // FK (we’ll create Device entity soon)
 
 export enum MessageState {
   Pending = 'Pending',
@@ -41,8 +41,8 @@ export class Message {
   @CreateDateColumn({ type: 'datetime' })
   created_at: Date;
 
-  @ManyToOne(() => Device, (device) => device.messages, { eager: false })
-  device: Device;
+  // @ManyToOne(() => Device, (device) => device.messages, { eager: false })
+  // device: Device;
 
   @Column({
     type: 'enum',
