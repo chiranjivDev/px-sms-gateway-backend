@@ -5,25 +5,60 @@ import { Message } from './message.entity';
 import { CreateMessageDto } from './dto/create-message.dto';
 import { Device } from '../devices/device.entity';
 import { UpdateMessageStatusDto } from './dto/update-message-status.dto';
+import { FirebaseService } from 'src/firebase/firebase.service';
 
 @Injectable()
 export class MessagesService {
   constructor(
     @InjectRepository(Message)
     private readonly messageRepo: Repository<Message>,
+    private readonly firebaseService: FirebaseService,
     @InjectRepository(Device) private readonly deviceRepo: Repository<Device>,
   ) {}
 
+  // async create(dto: CreateMessageDto) {
+  //   // const device = await this.deviceRepo.findOneBy({ id: dto.deviceId });
+  //   // if (!device) throw new Error('Device not found');
+
+  //   const message = this.messageRepo.create({
+  //     ...dto,
+  //     // device,
+  //   });
+
+  //   return this.messageRepo.save(message);
+  // }
+
   async create(dto: CreateMessageDto) {
+    // 1. Find device
     // const device = await this.deviceRepo.findOneBy({ id: dto.deviceId });
     // if (!device) throw new Error('Device not found');
 
+    // 2. Save the message
     const message = this.messageRepo.create({
       ...dto,
-      // device,
+      // device, // if you have relation setup
     });
+    await this.messageRepo.save(message);
 
-    return this.messageRepo.save(message);
+    // 3. Build FCM payload
+    const payload = {
+      notification: {
+        title: 'New SMS Request',
+        body: 'Send this SMS via gateway',
+      },
+      data: {
+        id: message.id,
+        phoneNumber: dto.phoneNumber,
+        message: dto.message,
+      },
+    };
+
+    const fcmToken = '';
+
+    // 4. Send FCM push to device
+    await this.firebaseService.sendToDevice(fcmToken, payload);
+
+    return message;
   }
 
   // findAll() {

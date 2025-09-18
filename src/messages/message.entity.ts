@@ -23,6 +23,9 @@ export class Message {
   @Column('text')
   message: string;
 
+  @Column()
+  phoneNumber: string;
+
   @Column({ type: 'boolean', default: false })
   is_encrypted: boolean;
 

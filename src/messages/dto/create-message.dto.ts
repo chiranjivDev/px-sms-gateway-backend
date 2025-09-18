@@ -14,6 +14,9 @@ export class CreateMessageDto {
   @IsString()
   message: string;
 
+  @IsString()
+  phoneNumber: string;
+
   @ApiProperty()
   @IsBoolean()
   is_encrypted: boolean;

@@ -7,6 +7,7 @@ import { MessagesModule } from './messages/messages.module';
 import { DevicesModule } from './devices/devices.module';
 import { HealthModule } from './health/health.module';
 import { LoggingModule } from './logging/logging.module';
+import { FirebaseModule } from './firebase/firebase.module';
 
 @Module({
   imports: [
@@ -33,6 +34,7 @@ import { LoggingModule } from './logging/logging.module';
     }),
 
     MessagesModule,
+    FirebaseModule,
     DevicesModule,
     HealthModule,
   ],
