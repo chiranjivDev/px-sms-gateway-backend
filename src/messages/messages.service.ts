@@ -30,13 +30,13 @@ export class MessagesService {
 
   async create(dto: CreateMessageDto) {
     // 1. Find device
-    // const device = await this.deviceRepo.findOneBy({ id: dto.deviceId });
-    // if (!device) throw new Error('Device not found');
+    const device = await this.deviceRepo.findOneBy({ id: dto.deviceId });
+    if (!device) throw new Error('Device not found');
 
     // 2. Save the message
     const message = this.messageRepo.create({
       ...dto,
-      // device, // if you have relation setup
+      // device, // need to setup relation
     });
     await this.messageRepo.save(message);
 
@@ -53,7 +53,7 @@ export class MessagesService {
       },
     };
 
-    const fcmToken = '';
+    const fcmToken = device.pushToken || '';
 
     // 4. Send FCM push to device
     await this.firebaseService.sendToDevice(fcmToken, payload);
