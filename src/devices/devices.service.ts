@@ -40,7 +40,7 @@ export class DevicesService {
 
     const device = this.deviceRepo.create({
       id: deviceId,
-  name: dto.name ?? '',
+      name: dto.name ?? '',
       pushToken: dto.pushToken,
       authToken,
       userId: login, // using login as UserID reference

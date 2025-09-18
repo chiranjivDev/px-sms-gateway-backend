@@ -1,14 +1,12 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsOptional, IsString } from 'class-validator';
+import { IsString } from 'class-validator';
 
 export class RegisterDeviceDto {
   @ApiProperty({ required: false })
-  @IsOptional()
   @IsString()
-  name?: string;
+  name: string;
 
   @ApiProperty({ required: false })
-  @IsOptional()
   @IsString()
-  pushToken?: string;
+  pushToken: string;
 }

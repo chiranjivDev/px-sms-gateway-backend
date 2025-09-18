@@ -16,18 +16,6 @@ export class MessagesService {
     @InjectRepository(Device) private readonly deviceRepo: Repository<Device>,
   ) {}
 
-  // async create(dto: CreateMessageDto) {
-  //   // const device = await this.deviceRepo.findOneBy({ id: dto.deviceId });
-  //   // if (!device) throw new Error('Device not found');
-
-  //   const message = this.messageRepo.create({
-  //     ...dto,
-  //     // device,
-  //   });
-
-  //   return this.messageRepo.save(message);
-  // }
-
   async create(dto: CreateMessageDto) {
     // 1. Find device
     const device = await this.deviceRepo.findOneBy({ id: dto.deviceId });
@@ -49,7 +37,7 @@ export class MessagesService {
       data: {
         id: message.id,
         phoneNumber: dto.phoneNumber,
-        message: dto.message,
+        message: dto.content,
       },
     };
 
@@ -60,10 +48,6 @@ export class MessagesService {
 
     return message;
   }
-
-  // findAll() {
-  //   return this.messageRepo.find({ relations: ['device'] });
-  // }
 
   async getMessageStatus(id: string) {
     const message = await this.messageRepo.findOneBy({ id });
