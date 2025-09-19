@@ -81,6 +81,9 @@ export class Message {
   @Column()
   phoneNumber: string;
 
+  @Column()
+  deviceId: string; // <-- link back to device
+
   @Column({
     type: 'enum',
     enum: MessageState,

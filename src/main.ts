@@ -14,6 +14,10 @@ async function bootstrap() {
     .setTitle('SMS Gateway API')
     .setDescription('API docs for SMS Gateway service')
     .setVersion('1.0')
+    .addBasicAuth(
+      { type: 'http', scheme: 'basic' },
+      'basic', // 👈 name of security scheme
+    )
     .build();
 
   const document = SwaggerModule.createDocument(app, config);

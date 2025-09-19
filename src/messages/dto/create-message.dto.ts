@@ -68,7 +68,7 @@ export class CreateMessageDto {
   @IsEnum(MessageState)
   state?: MessageState;
 
-  @ApiProperty({ description: 'Gateway device ID' })
-  @IsString()
-  deviceId: string;
+  // @ApiProperty({ description: 'Gateway device ID' })
+  // @IsString()
+  // deviceId: string;
 }

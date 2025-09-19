@@ -16,15 +16,15 @@ export class MessagesService {
     @InjectRepository(Device) private readonly deviceRepo: Repository<Device>,
   ) {}
 
-  async create(dto: CreateMessageDto) {
+  async create(dto: CreateMessageDto, device: Device) {
     // 1. Find device
-    const device = await this.deviceRepo.findOneBy({ id: dto.deviceId });
+    // const device = await this.deviceRepo.findOneBy({ id: dto.deviceId });
     if (!device) throw new Error('Device not found');
 
     // 2. Save the message
     const message = this.messageRepo.create({
       ...dto,
-      // device, // need to setup relation
+      deviceId: device.id, // setup relation later
     });
     await this.messageRepo.save(message);
 

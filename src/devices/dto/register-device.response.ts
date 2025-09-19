@@ -4,8 +4,8 @@ export class RegisterDeviceResponse {
   @ApiProperty()
   id: string;
 
-  @ApiProperty()
-  token: string;
+  // @ApiProperty()
+  // token: string;
 
   @ApiProperty()
   login: string;
