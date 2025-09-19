@@ -11,8 +11,8 @@ async function bootstrap() {
 
   // Swagger config
   const config = new DocumentBuilder()
-    .setTitle('SMS Gateway API')
-    .setDescription('API docs for SMS Gateway service')
+    .setTitle('PX-SMS Gateway API')
+    .setDescription('API docs for PX SMS Gateway service')
     .setVersion('1.0')
     .addBasicAuth(
       { type: 'http', scheme: 'basic' },
